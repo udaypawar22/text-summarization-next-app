@@ -83,7 +83,7 @@ function Login() {
             <p className="text-gray-500">Or</p>
             <DividerLine />
           </div>
-          <div className="flex-col justify-center items-center">
+          <div className="flex flex-col gap-2 justify-center items-center w-full">
             <Button
               className="bg-white border text-gray-500"
               radius="sm"
