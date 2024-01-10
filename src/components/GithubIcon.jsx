@@ -8,6 +8,7 @@ export default function GithubIcon() {
       viewBox="0 0 48 48"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="-mr-1"
     >
       <g id="Platform=Github, Color=Original" clip-path="url(#clip0_910_21)">
         <path

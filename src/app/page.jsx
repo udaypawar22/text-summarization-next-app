@@ -24,7 +24,7 @@ export default async function Home() {
             variant="bordered"
             label="Input"
             labelPlacement="outside"
-            placeholder="type here..."
+            placeholder="Type here..."
             minRows={20}
           />
           <div className="flex justify-between items-center w-full">
@@ -50,8 +50,8 @@ export default async function Home() {
             </div>
           </div>
         </div>
-        <div className="overflow-y-scroll bg-slate-100 dark:bg-slate-950 thin-scroll rounded-lg dark:border-white px-6 py-4">
-          Output will be displayed here
+        <div className="overflow-y-scroll bg-slate-100 dark:bg-zinc-950 shadow dark:shadow-gray-800 thin-scroll rounded-lg px-6 py-4">
+          <p>Output will be displayed here</p>
         </div>
       </div>
     </>

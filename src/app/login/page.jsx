@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Input, Button } from "@nextui-org/react";
 import Image from "next/image";
-import loginImg from "../../images/login_image.jpg";
+import loginImg from "../../images/login_image.png";
 import DividerLine from "@/components/DividerLine";
 import GoogleIcon from "@/components/GoogleIcon";
 import { signIn } from "next-auth/react";
@@ -49,7 +49,7 @@ function Login() {
 
   return (
     <div className="min-h-screen flex">
-      <div className="flex-1 bg-blue-100 relative p-24">
+      <div className="flex-1 relative p-24">
         <Image fill alt="login_image" src={loginImg} />
       </div>
       <div className="flex-1">
@@ -85,24 +85,26 @@ function Login() {
           </div>
           <div className="flex flex-col gap-2 justify-center items-center w-full">
             <Button
-              className="bg-white border text-gray-500"
               radius="sm"
+              variant="bordered"
+              color="primary"
               content
               fullWidth
               startContent={<GoogleIcon />}
               onClick={() => handleSignIn("google")}
             >
-              Log in with Google
+              <span className="pl-2">Log in with Google</span>
             </Button>
             <Button
-              className="bg-white border text-gray-500"
               radius="sm"
+              variant="bordered"
+              color="primary"
               content
               fullWidth
               startContent={<GithubIcon />}
               onClick={() => handleSignIn("github")}
             >
-              Log in with Github
+              <span className="pl-2">Log in with Github</span>
             </Button>
           </div>
         </div>
