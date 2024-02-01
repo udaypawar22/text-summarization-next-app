@@ -1,15 +1,9 @@
 import mongoose from "mongoose";
-
-const connect = async () => {
-  if (mongoose.connections[0].readyState) return;
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-  } catch (error) {
-    throw new Error("Error connecting to Mongoose");
+export function mongooseConnect() {
+  const uri = process.env.MONGODB_URI;
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection.asPromise();
+  } else {
+    return mongoose.connect(uri);
   }
-};
-
-export default connect;
+}

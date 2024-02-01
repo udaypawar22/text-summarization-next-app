@@ -33,6 +33,27 @@ export const authOptions = {
   pages: {
     signIn: "/login",
   },
+
+  session: {
+    strategy: "jwt",
+  },
+
+  callbacks: {
+    async session({ token, session }) {
+      if (token) {
+        session.accessToken = token.accessToken;
+        session.user.id = token.id;
+      }
+      return session;
+    },
+    async jwt({ token, account, user }) {
+      if (account) {
+        token.id = user.id;
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+  },
 };
 
 // import CredentialsProvider from "next-auth/providers/credentials";

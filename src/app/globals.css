@@ -12,10 +12,13 @@
 }
 
 .thin-scroll::-webkit-scrollbar-thumb:hover {
-  @apply bg-[#a0aec0];
+  @apply bg-[#a0aec0] cursor-pointer;
 }
 
 .thin-scroll::-webkit-scrollbar-track {
   @apply bg-transparent;
 }
 /* @apply bg-[#e8e8e8] dark:bg-slate-600 rounded-xl; */
+.txt-area {
+  height: 400px;
+}
