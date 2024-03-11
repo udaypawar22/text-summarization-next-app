@@ -14,7 +14,7 @@ export default async function Home() {
   return (
     <>
       <NavigationBar />
-      <div className="h-[calc(100vh-80px)] grid grid-cols-2 gap-8 px-8 py-6">
+      <div className="min-h-[calc(100vh-80px)] grid lg:grid-cols-2 gap-8 px-8 py-6">
         <InputForm />
       </div>
     </>

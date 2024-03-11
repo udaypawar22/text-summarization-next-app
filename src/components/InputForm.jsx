@@ -43,7 +43,6 @@ export default function InputForm() {
         summary: response_data.summary,
       });
 
-      console.log(storeResponse.data);
       setOutput(response_data.summary.replace(/<n>/g, "<br />"));
     } catch (error) {
       setOutput("Output will be displayed here");
@@ -81,7 +80,7 @@ export default function InputForm() {
             onChange={setLength}
           />
           <div className="flex items-center justify-center gap-5">
-            <label className="cursor-pointer p-2 rounded-xl border border-blue-500">
+            <label className="cursor-pointer p-[6px] rounded-xl border-medium border-blue-500 text-blue-500 hover:text-white transition hover:bg-blue-500">
               <UploadIcon />
               <input type="file" className="hidden" onChange={upload} />
             </label>
@@ -97,7 +96,7 @@ export default function InputForm() {
           </div>
         </div>
       </div>
-      <div className="overflow-y-scroll bg-slate-100 dark:bg-zinc-950 shadow dark:shadow-gray-800 thin-scroll rounded-lg px-6 py-4">
+      <div className="h-screen lg:h-full overflow-y-scroll bg-slate-100 dark:bg-zinc-950 shadow dark:shadow-gray-800 thin-scroll rounded-lg px-6 py-4">
         <p dangerouslySetInnerHTML={{ __html: output }}></p>
       </div>
     </>

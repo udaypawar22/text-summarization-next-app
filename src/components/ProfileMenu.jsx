@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
 import {
   Button,
   DropdownItem,
@@ -16,15 +17,19 @@ import {
   Input,
   Textarea,
 } from "@nextui-org/react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import ProfileIcon from "./ProfileIcon";
 import { useTheme } from "next-themes";
 
-export default function ProfileMenu() {
+const publicKey = "-n9tMjy7vThCw6UyM";
+
+export default function ProfileMenu({ session }) {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  const { data: session } = useSession();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [message, setMessage] = useState("");
+  const [name, setName] = useState(session?.user?.name);
+  const [email, setEmail] = useState(session?.user?.email);
+  const { isOpen, onOpen, onOpenChange, onClose: closeModal } = useDisclosure();
 
   useEffect(() => {
     setMounted(true);
@@ -35,6 +40,36 @@ export default function ProfileMenu() {
   function handleThemeSwitch() {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
+  }
+
+  function sendEmail() {
+    if (message && email && name) {
+      emailjs
+        .send(
+          "service_9g3fbaa",
+          "template_km2i58e",
+          {
+            from_name: name,
+            email_id: email,
+            message: message,
+          },
+          publicKey
+        )
+        .then(
+          (result) => {
+            alert("Message sent successfully");
+            setName(session?.user?.name);
+            setEmail(session?.user?.email);
+            setMessage("");
+            closeModal();
+          },
+          (err) => {
+            console.log(err);
+            alert("There was a problem in sending the message");
+            closeModal();
+          }
+        );
+    }
   }
 
   const image = session?.user?.image;
@@ -80,35 +115,49 @@ export default function ProfileMenu() {
           placement="top-center"
         >
           <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader className="flex flex-col gap-1">
-                  Contact Us
-                </ModalHeader>
-                <ModalBody>
-                  <Input
-                    autoFocus
-                    label="Email"
-                    placeholder="Enter your email"
-                    variant="bordered"
-                  />
-                  <Textarea
-                    className="h-28"
-                    placeholder="Enter your message"
-                    variant="bordered"
-                    minRows={10}
-                  />
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" variant="flat" onPress={onClose}>
-                    Close
-                  </Button>
-                  <Button color="primary" onPress={onClose}>
-                    Send
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
+            <ModalHeader className="flex flex-col gap-1">
+              Contact Us
+            </ModalHeader>
+            <ModalBody>
+              <Input
+                autoFocus
+                label="Name"
+                placeholder="Enter your name"
+                variant="bordered"
+                value={name}
+                onChange={(ev) => {
+                  setName(ev.target.value);
+                }}
+              />
+              <Input
+                autoFocus
+                label="Email"
+                placeholder="Enter your email"
+                variant="bordered"
+                value={email}
+                onChange={(ev) => {
+                  setEmail(ev.target.value);
+                }}
+              />
+              <Textarea
+                className="h-28"
+                placeholder="Enter your message"
+                variant="bordered"
+                minRows={10}
+                value={message}
+                onChange={(ev) => {
+                  setMessage(ev.target.value);
+                }}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="flat" onPress={closeModal}>
+                Close
+              </Button>
+              <Button color="primary" onPress={sendEmail}>
+                Send
+              </Button>
+            </ModalFooter>
           </ModalContent>
         </Modal>
       )}

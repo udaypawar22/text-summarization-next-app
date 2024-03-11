@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^2.0.10",
+    "@emailjs/browser": "^3.12.1",
     "@nextui-org/react": "^2.2.9",
     "axios": "^1.6.5",
     "bcryptjs": "^2.4.3",
